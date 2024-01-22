@@ -1,0 +1,16 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '15'
+      - name: Run tests
+        run: mvn test
+      - name: Package
+        run: mvn -Dmaven.test.skip=true package
+#      - name: Try it!
+#        run: java -cp target/kotlin-maven-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.App
