@@ -1,4 +1,4 @@
-package de.dangl
+package volunteerorganizer
 
 fun main() {
     println("Hello, World!")
