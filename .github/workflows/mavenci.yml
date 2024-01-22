@@ -9,8 +9,10 @@ jobs:
         with:
           java-version: '15'
       - name: Run tests
-        run: cd volunteer-organizer-backend && mvn test
+        run: mvn test
+        working-directory: ./volunteer-organizer-backend
       - name: Package
-        run: cd volunteer-organizer-backend && mvn -Dmaven.test.skip=true package
+        run: mvn -Dmaven.test.skip=true package
+        working-directory: ./volunteer-organizer-backend
 #      - name: Try it!
 #        run: java -cp target/kotlin-maven-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.App
