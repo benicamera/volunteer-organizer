@@ -2,7 +2,9 @@
 Service for organizing volunteers and their work.
 
 ## Stats
-[![DeepSource](https://app.deepsource.com/gh/benicamera/volunteer-organizer.svg/?label=code+coverage&show_trend=true&token=ZO2OqNng3DQ-sKosN6S_L7BP)](https://app.deepsource.com/gh/benicamera/volunteer-organizer/)
+[![DeepSource](https://app.deepsource.com/gh/benicamera/volunteer-organizer.svg/?label=active+issues&show_trend=true&token=ZO2OqNng3DQ-sKosN6S_L7BP)](https://app.deepsource.com/gh/benicamera/volunteer-organizer/)
+[![DeepSource](https://app.deepsource.com/gh/benicamera/volunteer-organizer.svg/?label=resolved+issues&show_trend=true&token=ZO2OqNng3DQ-sKosN6S_L7BP)](https://app.deepsource.com/gh/benicamera/volunteer-organizer/)
+![CI](https://github.com/danglbe/volunteer-organizer/actions/workflows/mavenci.yml/badge.svg)
 
 ## Project Layout
 
