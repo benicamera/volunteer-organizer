@@ -21,6 +21,7 @@
 *.ind 
 *.ist
 *.lol
+*.tdo
 
 ## Intermediate documents:
 *.dvi
