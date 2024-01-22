@@ -12,6 +12,15 @@
 *.cb
 *.cb2
 .*.lb
+*.acn
+*.for
+*.glo
+*.glsdefs
+*.idx
+*.ilg
+*.ind 
+*.ist
+*.lol
 
 ## Intermediate documents:
 *.dvi
