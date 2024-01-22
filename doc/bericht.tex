@@ -1,0 +1,195 @@
+%&bericht
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Descr:       Vorlage für Berichte der DHBW-Karlsruhe
+%% Author:      Prof. Dr. Jürgen Vollmer, juergen.vollmer@dhbw-karlsruhe.de
+%% $Id: bericht.tex,v 1.30 2023/07/25 11:03:01 vollmer Exp $
+%%  -*- coding: utf-8 -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+   ngerman          % neue deutsche Rechtschreibung
+  ,a4paper          % Papiergrösse
+% ,twoside          % Zweiseitiger Druck (rechts/links)
+% ,10pt             % Schriftgrösse
+  ,11pt
+% ,12pt
+  ,pdftex
+%  ,disable         % Todo-Markierungen auschalten
+  ,dvipsnames,table
+]{report}
+
+% Bitte die Codierung Ihrer Dateien auswählen:
+% \usepackage[latin1]{inputenc}    % Für UNIX mit ISO-LATIN-codierten Dateien
+% \usepackage[applemac]{inputenc}  % Für Apple Mac
+% \usepackage[ansinew]{inputenc}   % Für Microsoft Windows
+\usepackage[utf8]{inputenc}        % UTF-8 codierte Dateien
+                                   % Dieses Dokument ist unter Unix erstellt, daher
+                                   % wird diese Input-Codierung benutzt.
+\usepackage[acronym]{glossaries}
+\usepackage{bericht}
+\usepackage{pdfpages}
+\makeglossaries
+\loadglsentries{glossaries.tex}
+
+%% ACHTUNG, wenn man eine eigene Formatdatei (bericht.fmt) benutzt, werden Änderungen an bericht.sty
+%% erst wirksam, wenn die Format-Datei neu erzeugt wurde!!!
+%% Genauer alle Änderungen, die textuell vor der nächsten Zeile ".... endofdump...." stehen
+%% werden erst wirksam, wenn die Formatdatei neu erzeugt wurde
+\csname endofdump\endcsname
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Angaben zur Arbeit
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Autor}{Benjamin Dangl}
+\newcommand{\MatrikelNummer}{99999}
+\newcommand{\Kursbezeichnung}{tinf21b4}
+
+\newcommand{\FirmenName}{SICK AG}
+\newcommand{\FirmenStadt}{Waldkirch}
+
+% Falls es kein Firmenlogo gibt:
+\newcommand{\FirmenLogoDeckblatt}{}
+
+\newcommand{\BetreuerDHBW}{Mirko Dostmann}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newcommand{\Abschluss}{Bachelor of Engineering}
+\newcommand{\Abschluss}{Bachelor of Science}
+
+% \newcommand{\Studiengang}{Informatik / Informationstechnik}
+\newcommand{\Studiengang}{Informatik}
+
+\hypersetup{%%
+  pdfauthor={\Autor},
+  pdftitle={Technische Dokumentation},
+  pdfsubject={Volunteer Organizer},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Wenn \includeonly{..} benutzt wird, werden nur diese Kaptitel ausgegeben.
+\includeonly{
+  glossaries
+ ,kapitel1
+ ,kapitel2
+ ,kapitel3
+ ,kapitel4
+ ,kapitel5
+ ,kapitel6
+ ,appendix
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Benutzt man das "biblatex"-Paket, dann muß das hier stehen:
+% siehe auch die mit BIBLATEX markierten Zeilen in bericht.sty
+\bibliography{bericht}
+
+\begin{document}
+
+\pagenumbering{roman}
+% Seitennummern in römischen bzw. arabischen Ziffern:
+% https://tex.stackexchange.com/questions/226864/start-toc-from-chapter-1-and-also-page-numbering
+% style can be any of these:
+%
+%    arabic: arabic numerals
+%    roman: lowercase roman numerals
+%    Roman: uppercase roman numerals
+%    alph: lowercase letters
+%    Alph: uppercase letters
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+  \begin{center}
+    \vspace*{-2cm}
+    \FirmenLogoDeckblatt\hfill\includegraphics[width=4cm]{assets/figures/dhbw-logo.png}\\[2cm]
+    {\Huge Technische Dokumentation}\\[1cm]
+    {\Huge\scshape Volunteer Organizer}\\[1cm]
+    {\large für die Prüfungsleistung}\\[0.5cm]
+    {\Large Advanced Software Engineering}\\[0.5cm]
+    {\large des Studienganges \Studiengang}\\[0.5cm]
+    {\large an der}\\[0.5cm]
+    {\large Dualen Hochschule Baden-Württemberg Karlsruhe}\\[0.5cm]
+    {\large von}\\[0.5cm]
+    {\large\bfseries \Autor}
+    \vfill
+  \end{center}
+  \begin{tabular}{l@{\hspace{2cm}}l}
+    Matrikelnummer                & \MatrikelNummer  \\
+    Kurs                          & \Kursbezeichnung \\
+    Gutachter der Studienakademie & \BetreuerDHBW    \\
+  \end{tabular}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{erklaerung.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+\end{abstract}
+
+\newcounter{savepageRoman} % needed to continue after text
+
+\newpage
+\tableofcontents           % Inhaltsverzeichnis hier ausgeben
+\listoffigures             % Liste der Abbildungen
+\listoftables              % Liste der Tabellen
+\lstlistoflistings         % Liste der Listings
+\listofequations           % Liste der Formeln
+
+% Jetzt kommt der "eigentliche" Text
+\include{glossaries}              % Abkürzungsverzeichnis
+\setcounter{savepageRoman}{\value{page}}
+\pagenumbering{arabic}
+% https://tex.stackexchange.com/questions/226864/start-toc-from-chapter-1-and-also-page-numbering
+
+\include{kapitel1}
+\include{kapitel2}
+\include{kapitel3}
+\include{kapitel4}
+\include{kapitel5}
+\include{kapitel6}
+
+% Ab hier beginnt der Anhang
+\pagenumbering{roman}
+\setcounter{page}{\value{savepageRoman}}
+\appendix
+\addcontentsline{toc}{chapter}{Anhang}
+\include{appendix}
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+\printglossary[type=\acronymtype]
+
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+
+% Haben Sie das "biblatex"-Paket nicht installiert, benutzen Sie folgendes:
+% Ohne das "biblatex"-Paket (s. bericht.sty) produziert folgendes
+% "deutsche" Zitate in Literaturverzeichnissen gemaß der Norm DIN 1505,
+% Teil 2 vom Jan. 1984.
+% Die Zitatmarken werden alphabetisch nach Verfassern
+% sortiert und sind durch abgekürzte Verfasserbuchstaben plus
+% Erscheinungsjahr in eckigen Klammern gekennzeichnet.
+
+% \bibliographystyle{alphadin}
+% \bibliography{bericht}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% BIBLATEX
+% Benutzt man das "biblatex"-Paket, muß man folgendes schreiben:
+\def\refname{Literaturverzeichnis}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\addcontentsline{toc}{chapter}{Liste der ToDo's}
+\listoftodos[Liste der ToDo's]
+
+
+\end{document}
