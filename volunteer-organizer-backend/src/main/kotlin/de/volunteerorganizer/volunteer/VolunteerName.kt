@@ -9,7 +9,5 @@ data class VolunteerName(val firstName: String, val lastName: String) {
     /**
      * @return name of volunteer in shape "firstname lastname"
      */
-    override fun toString(): String {
-        return "$firstName $lastName"
-    }
+    override fun toString(): String = "$firstName $lastName"
 }
