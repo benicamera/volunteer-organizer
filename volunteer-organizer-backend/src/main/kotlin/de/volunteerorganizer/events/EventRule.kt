@@ -17,7 +17,7 @@ enum class EventRuleType {
      * Possible keys: `{feature}_min` and `{feature}_max`
      * Possible values: -1 - n with -1 encoding "no limit" on max key
      */
-    NUM_FEATURES
+    NUM_FEATURES,
 }
 
 /**
@@ -28,4 +28,3 @@ enum class EventRuleType {
  */
 data class EventRule(val ruleType: EventRuleType, val key: String, val value: Int)
 // TODO check if value is valid
-
