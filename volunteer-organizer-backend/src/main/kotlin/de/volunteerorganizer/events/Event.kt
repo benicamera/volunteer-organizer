@@ -2,7 +2,7 @@ package de.volunteerorganizer.events
 
 import java.util.*
 
-class Event: IEvent {
+class Event : IEvent {
     override fun changeName(newName: EventName) {
         TODO("Not yet implemented")
     }
