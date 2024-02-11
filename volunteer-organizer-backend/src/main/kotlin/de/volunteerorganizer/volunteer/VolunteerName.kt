@@ -5,7 +5,7 @@ package de.volunteerorganizer.volunteer
  * @param firstName: first name(s) of volunteer as string
  * @param lastName: last name(s) of volunteer as string
  */
-data class VolunteerName(val firstName: String, val lastName: String){
+data class VolunteerName(val firstName: String, val lastName: String) {
     /**
      * @return name of volunteer in shape "firstname lastname"
      */
