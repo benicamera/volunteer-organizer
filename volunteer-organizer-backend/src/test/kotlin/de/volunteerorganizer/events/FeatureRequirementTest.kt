@@ -15,8 +15,8 @@ class FeatureRequirementTest : TestCase() {
     private val req3 = FeatureRequirement(testFeature, validValues2)
 
     fun testMeets() {
-        val features1 = listOf(VolunteerFeature("testFeature"), VolunteerFeature("feature1"))
-        val features2 = listOf(VolunteerFeature("feature1"), VolunteerFeature("feature2"))
+        val features1 = listOf(testFeature, feature1)
+        val features2 = listOf(feature1, VolunteerFeature("feature2"))
         val volunteer1 = EventVolunteer(VolunteerId(1), VolunteerName("a", "a"), features1)
         val volunteer2 = EventVolunteer(VolunteerId(2), VolunteerName("b", "b"), features2)
         val volunteers = setOf(volunteer1, volunteer2)
