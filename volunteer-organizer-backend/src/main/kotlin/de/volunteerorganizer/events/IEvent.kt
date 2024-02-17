@@ -1,7 +1,5 @@
 package de.volunteerorganizer.events
 
-import java.util.Date
-
 /**
  * Interface for Events that need volunteers
  */
@@ -15,10 +13,10 @@ interface IEvent {
 
     /**
      * Changes date of Event
-     * @param: newDate: new Date of Event
+     * @param: newTimeFrame: new time frame of event
      * TODO: maybe change to setter
      */
-    fun changeDate(newDate: Date)
+    fun changeTimeFrame(newTimeFrame: EventTimeFrame)
 
     /**
      * Changes location of Event
@@ -28,20 +26,14 @@ interface IEvent {
     fun changeLocation(newLocation: EventLocation)
 
     /**
-     * Changes one rule of the Event.
-     * @param newRule: new EventRule to change
+     * Adds new task to event
+     * @param newTask: new event task to add
      */
-    fun changeRule(newRule: EventRule)
+    fun addTask(newTask: EventTask)
 
     /**
-     * Adds new volunteer to Event.
-     * @param newVolunteer: new EventVolunteer to add
+     * Removes task with given ID
+     * @param taskId: id of task to be deleted
      */
-    fun addVolunteer(newVolunteer: EventVolunteer)
-
-    /**
-     * Removes volunteer from Event.
-     * @param volunteer: EventVolunteer
-     */
-    fun removeVolunteer(volunteer: EventVolunteer)
+    fun removeTask(taskId: Int)
 }

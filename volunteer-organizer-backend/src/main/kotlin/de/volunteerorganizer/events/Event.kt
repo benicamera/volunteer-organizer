@@ -1,13 +1,11 @@
 package de.volunteerorganizer.events
 
-import java.util.*
-
 class Event : IEvent {
     override fun changeName(newName: EventName) {
         TODO("Not yet implemented")
     }
 
-    override fun changeDate(newDate: Date) {
+    override fun changeTimeFrame(newTimeFrame: EventTimeFrame) {
         TODO("Not yet implemented")
     }
 
@@ -15,15 +13,11 @@ class Event : IEvent {
         TODO("Not yet implemented")
     }
 
-    override fun changeRule(newRule: EventRule) {
+    override fun addTask(newTask: EventTask) {
         TODO("Not yet implemented")
     }
 
-    override fun addVolunteer(newVolunteer: EventVolunteer) {
-        TODO("Not yet implemented")
-    }
-
-    override fun removeVolunteer(volunteer: EventVolunteer) {
+    override fun removeTask(taskId: Int) {
         TODO("Not yet implemented")
     }
 }
