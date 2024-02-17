@@ -10,4 +10,11 @@ import de.volunteerorganizer.volunteer.VolunteerName
  * @param name: name of Volunteer
  * @param features: list of features the volunteer has
  */
-data class EventVolunteer(val id: VolunteerId, val name: VolunteerName, val features: List<VolunteerFeature>)
+class EventVolunteer(val id: VolunteerId, val name: VolunteerName, val features: List<VolunteerFeature>) {
+    /**
+     * Checks if volunteer has specific feature.
+     * @param feature: feature to be checked
+     * @return `true` if volunteer has feature
+     */
+    fun hasFeature(feature: VolunteerFeature): Boolean = features.contains(feature)
+}
