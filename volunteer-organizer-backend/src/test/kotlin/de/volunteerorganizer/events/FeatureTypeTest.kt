@@ -6,6 +6,15 @@ class FeatureTypeTest : TestCase() {
     private val testName1 = "VeryCoolName"
     private val testName2 = "VeryUncoolName"
 
+    fun testInit() {
+        try {
+            FeatureType("", 1)
+        } catch (err: IllegalArgumentException) {
+            return
+        }
+        fail()
+    }
+
     fun testTestGetName() {
         val type = FeatureType(testName1, 10)
         assertEquals(type.name, testName1)
