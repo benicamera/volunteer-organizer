@@ -5,27 +5,15 @@ import java.time.Instant
 import java.time.Period
 
 class EventTimeFrameTest : TestCase() {
-    fun testInit() {
-        var testGood: Boolean
+    fun testInitError() {
         val before = Instant.now()
         val after = before + Period.ofDays(1)
 
         try {
             EventTimeFrame(after, before)
-            testGood = false
         } catch (err: IllegalArgumentException) {
-            testGood = true
+            return
         }
-
-        try {
-            EventTimeFrame(before, after)
-            testGood = testGood && true
-        } catch (err: IllegalArgumentException) {
-            testGood = false
-        }
-
-        if (!testGood) {
-            fail()
-        }
+        fail()
     }
 }

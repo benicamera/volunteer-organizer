@@ -11,11 +11,14 @@ class EventTaskTest : TestCase() {
     private val featureRequirement1 = FeatureRequirement(VolunteerFeature("feature1"), ValidIntRange(1, 1))
     private val volunteer1 = EventVolunteer(VolunteerId(1), VolunteerName("a", "a"), listOf(feature1))
     private val volunteer2 = EventVolunteer(VolunteerId(2), VolunteerName("b", "b"), listOf(feature1))
+    private var task = EventTask("", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+
+    override fun setUp() {
+        super.setUp()
+        task = EventTask("task", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+    }
 
     fun testAddVolunteer() {
-        // make sure task is fresh and has no one in it
-        val task = EventTask("task2", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
-
         task.addVolunteer(volunteer1)
 
         val volunteers = task.getVolunteers()
@@ -24,8 +27,6 @@ class EventTaskTest : TestCase() {
     }
 
     fun testRemoveVolunteer() {
-        // make sure task is fresh and has no one in it
-        val task = EventTask("task3", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
         task.addVolunteer(volunteer1)
 
         task.removeVolunteer(volunteer1.id)
@@ -34,16 +35,18 @@ class EventTaskTest : TestCase() {
         assertEquals(0, volunteers.size)
     }
 
-    fun testMeetsRequirements() {
-        val task = EventTask("task4", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
-
+    fun testMeetsRequirementsTrue() {
         task.addVolunteer(volunteer1)
         val shouldBeTrue = task.meetsRequirements()
 
-        task.addVolunteer(volunteer2)
-        val shouldBeFalse = task.meetsRequirements()
-
         assertTrue(shouldBeTrue)
+    }
+
+    fun testMeetsRequirementsFalse() {
+        task.addVolunteer(volunteer1)
+        task.addVolunteer(volunteer2)
+
+        val shouldBeFalse = task.meetsRequirements()
         assertFalse(shouldBeFalse)
     }
 }

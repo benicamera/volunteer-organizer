@@ -8,17 +8,21 @@ import kotlin.test.assertContentEquals
 
 class EventVolunteerTest : TestCase() {
     private val feature1 = VolunteerFeature("hello")
-    private val feature2 = VolunteerFeature("bye")
     private val features1 = listOf(feature1)
     private val id1 = VolunteerId(1)
     private val name1 = VolunteerName("test1", "test1")
     private val vol1 = EventVolunteer(id1, name1, features1)
 
-    fun testHasFeature() {
+    fun testHasFeatureTrue() {
         val shouldBeTrue = vol1.hasFeature(feature1)
-        val shouldBeFalse = vol1.hasFeature(feature2)
 
         assertTrue(shouldBeTrue)
+    }
+
+    fun testHasFeatureFalse() {
+        val feature2 = VolunteerFeature("bye")
+        val shouldBeFalse = vol1.hasFeature(feature2)
+
         assertFalse(shouldBeFalse)
     }
 
