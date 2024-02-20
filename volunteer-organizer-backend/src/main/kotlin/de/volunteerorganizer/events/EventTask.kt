@@ -8,14 +8,26 @@ import de.volunteerorganizer.volunteer.VolunteerId
  * @param timeFrame: time frame in which the task is scheduled
  * @param featureRequirements: requirements that need to be met in order to execute task
  */
-class EventTask(val name: String, private val timeFrame: EventTimeFrame, private val featureRequirements: List<FeatureRequirement>) {
+class EventTask(
+    val id: Int,
+    val name: String,
+    private val timeFrame: EventTimeFrame,
+    private val featureRequirements: List<FeatureRequirement>,
+) : IEventTask {
     private val volunteers = mutableSetOf<EventVolunteer>()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true // is the very same instance
+        if (other == null || javaClass != other.javaClass) return false // is null or not of same class
+        val otherTask: EventTask = other as EventTask // handle other as type of same class
+        return id == otherTask.id // ids match
+    }
 
     /**
      * Adds a volunteer to the list of volunteers
      * @param newVolunteer: volunteer to add to task
      */
-    fun addVolunteer(newVolunteer: EventVolunteer) {
+    override fun addVolunteer(newVolunteer: EventVolunteer) {
         // maybe add feature requirements checking
         volunteers.add(newVolunteer)
     }
@@ -24,7 +36,7 @@ class EventTask(val name: String, private val timeFrame: EventTimeFrame, private
      * Removes volunteer from task
      * @param id: ID of volunteer to remove
      */
-    fun removeVolunteer(id: VolunteerId) {
+    override fun removeVolunteer(id: VolunteerId) {
         volunteers.removeIf { v: EventVolunteer -> v.id == id }
     }
 
@@ -32,7 +44,7 @@ class EventTask(val name: String, private val timeFrame: EventTimeFrame, private
      * Checks if task meets its requirements
      * @return `true` if volunteers and feature requirements match
      */
-    fun meetsRequirements(): Boolean {
+    override fun meetsRequirements(): Boolean {
         var doesMeet = true
         featureRequirements.forEach { req -> doesMeet = doesMeet && req.meets(volunteers) }
         return doesMeet
@@ -42,5 +54,9 @@ class EventTask(val name: String, private val timeFrame: EventTimeFrame, private
      * Get an immutable set of volunteers
      * @return immutable set of volunteers
      */
-    fun getVolunteers(): Set<EventVolunteer> = volunteers.toSet()
+    override fun getVolunteers(): Set<EventVolunteer> = volunteers.toSet()
+
+    override fun hashCode(): Int {
+        return id
+    }
 }
