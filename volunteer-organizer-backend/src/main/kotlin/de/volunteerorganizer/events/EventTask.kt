@@ -9,9 +9,9 @@ import de.volunteerorganizer.volunteer.VolunteerId
  * @param featureRequirements: requirements that need to be met in order to execute task
  */
 class EventTask(
-    val id: Int,
+    override val id: Int,
     val name: String,
-    private val timeFrame: EventTimeFrame,
+    override val timeFrame: EventTimeFrame,
     private val featureRequirements: List<FeatureRequirement>,
 ) : IEventTask {
     private val volunteers = mutableSetOf<EventVolunteer>()

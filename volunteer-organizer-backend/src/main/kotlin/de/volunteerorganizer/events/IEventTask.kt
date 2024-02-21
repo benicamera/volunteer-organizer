@@ -3,6 +3,9 @@ package de.volunteerorganizer.events
 import de.volunteerorganizer.volunteer.VolunteerId
 
 interface IEventTask {
+    val timeFrame: EventTimeFrame
+    val id: Int
+
     /**
      * Adds a volunteer to the list of volunteers
      * @param newVolunteer: volunteer to add to task
