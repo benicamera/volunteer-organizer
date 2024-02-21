@@ -1,23 +1,79 @@
 package de.volunteerorganizer.events
 
-class Event : IEvent {
-    override fun changeName(newName: EventName) {
-        TODO("Not yet implemented")
+import de.volunteerorganizer.volunteer.VolunteerId
+
+class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
+    private val tasks = mutableSetOf<IEventTask>()
+
+    /**
+     * Adds volunteer to task
+     * @param taskId: ID of task to add the volunteer to
+     * @param volunteer: volunteer to add to the task
+     */
+    fun addVolunteerToTask(
+        taskId: Int,
+        volunteer: EventVolunteer,
+    ) {
+        tasks.find { t -> t.id == taskId }?.addVolunteer(volunteer)
     }
 
-    override fun changeTimeFrame(newTimeFrame: EventTimeFrame) {
-        TODO("Not yet implemented")
+    /**
+     * Removes a volunteer from a task
+     * @param taskId: ID of task to remove the volunteer from
+     * @param volunteerId: ID of volunteer to remove
+     */
+    fun removeVolunteerFromTask(
+        taskId: Int,
+        volunteerId: VolunteerId,
+    ) {
+        tasks.find { t -> t.id == taskId }?.removeVolunteer(volunteerId)
     }
 
-    override fun changeLocation(newLocation: EventLocation) {
-        TODO("Not yet implemented")
+    /**
+     * @return immutable set of Event tasks
+     */
+    fun getTasks(): Set<IEventTask> = tasks.toSet()
+
+    /**
+     * Adds task to event
+     * @param newTask: task to add
+     */
+    fun addTask(newTask: IEventTask) {
+        tasks.add(newTask)
     }
 
-    override fun addTask(newTask: EventTask) {
-        TODO("Not yet implemented")
+    /**
+     * Removes task from event
+     * @param taskId: ID of task to remove
+     */
+    fun removeTask(taskId: Int) {
+        tasks.removeIf { t -> t.id == taskId }
     }
 
-    override fun removeTask(taskId: Int) {
-        TODO("Not yet implemented")
+    /**
+     * Gets the tightest timeframe considering the tasks
+     * @return best time frame
+     */
+    fun getBestTimeFrame(): EventTimeFrame {
+        val minFrame =
+            tasks.minBy { t ->
+                t.timeFrame.startTime
+            }
+        val maxFrame = tasks.maxBy { t -> t.timeFrame.endTime }
+
+        return EventTimeFrame(minFrame.timeFrame.startTime, maxFrame.timeFrame.endTime)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Event
+
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id
     }
 }
