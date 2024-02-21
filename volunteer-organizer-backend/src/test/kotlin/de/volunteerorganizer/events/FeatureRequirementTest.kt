@@ -1,5 +1,6 @@
 package de.volunteerorganizer.events
 
+import de.volunteerorganizer.utils.ValidIntRange
 import de.volunteerorganizer.volunteer.VolunteerFeature
 import de.volunteerorganizer.volunteer.VolunteerId
 import de.volunteerorganizer.volunteer.VolunteerName

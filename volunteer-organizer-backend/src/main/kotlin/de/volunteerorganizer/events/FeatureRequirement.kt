@@ -1,5 +1,6 @@
 package de.volunteerorganizer.events
 
+import de.volunteerorganizer.utils.IValidValues
 import de.volunteerorganizer.volunteer.VolunteerFeature
 
 /**
