@@ -52,7 +52,7 @@ class EventTest : TestCase() {
 
     fun testRemoveTask() {
         val mockEventTask = Mockito.mock(IEventTask::class.java)
-
+        Mockito.`when`(mockEventTask.id).thenReturn(1)
         event.addTask(mockEventTask)
         event.removeTask(1)
         val tasks = event.getTasks()
