@@ -1,4 +1,4 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.utils
 
 /**
  * Class representing an integer range
