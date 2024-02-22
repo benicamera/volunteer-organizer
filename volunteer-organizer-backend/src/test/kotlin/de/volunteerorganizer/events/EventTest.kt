@@ -1,6 +1,7 @@
 package de.volunteerorganizer.events
 
 import de.volunteerorganizer.events.location.EventLocation
+import de.volunteerorganizer.events.location.IEventAddress
 import de.volunteerorganizer.volunteer.VolunteerName
 import junit.framework.TestCase
 import org.mockito.Mockito
@@ -9,11 +10,12 @@ import java.time.Period
 
 class EventTest : TestCase() {
     private val volunteer = EventVolunteer(1, VolunteerName("test", "test"), setOf())
-    private var event = Event(1, EventName("t"), EventLocation("t"), EventTimeFrame(Instant.now(), Instant.now()))
+    private val mockedAddress = Mockito.mock(IEventAddress::class.java)
+    private var event = Event(1, EventName("t"), EventLocation("t", mockedAddress), EventTimeFrame(Instant.now(), Instant.now()))
 
     override fun setUp() {
         super.setUp()
-        event = Event(1, EventName("testEvent"), EventLocation("testlocation"), EventTimeFrame(Instant.now(), Instant.now()))
+        event = Event(1, EventName("testEvent"), EventLocation("testlocation", mockedAddress), EventTimeFrame(Instant.now(), Instant.now()))
     }
 
     fun testAddVolunteerToTask() {
