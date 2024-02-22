@@ -1,5 +1,7 @@
 package de.volunteerorganizer.events
 
+import de.volunteerorganizer.events.location.EventLocation
+
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
     private val tasks = mutableSetOf<IEventTask>()
     // TODO: private id setter

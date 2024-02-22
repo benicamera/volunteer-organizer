@@ -1,5 +1,6 @@
 package de.volunteerorganizer.events
 
+import de.volunteerorganizer.events.location.EventLocation
 import de.volunteerorganizer.volunteer.VolunteerName
 import junit.framework.TestCase
 import org.mockito.Mockito
