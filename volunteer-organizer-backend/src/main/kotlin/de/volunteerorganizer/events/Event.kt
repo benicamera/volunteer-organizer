@@ -1,9 +1,8 @@
 package de.volunteerorganizer.events
 
-import de.volunteerorganizer.volunteer.VolunteerId
-
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
     private val tasks = mutableSetOf<IEventTask>()
+    // TODO: private id setter
 
     /**
      * Adds volunteer to task
@@ -24,7 +23,7 @@ class Event(val id: Int, val name: EventName, val location: EventLocation, val t
      */
     fun removeVolunteerFromTask(
         taskId: Int,
-        volunteerId: VolunteerId,
+        volunteerId: Int,
     ) {
         tasks.find { t -> t.id == taskId }?.removeVolunteer(volunteerId)
     }

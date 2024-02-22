@@ -1,6 +1,5 @@
 package de.volunteerorganizer.events
 
-import de.volunteerorganizer.volunteer.VolunteerId
 import de.volunteerorganizer.volunteer.VolunteerName
 import junit.framework.TestCase
 import org.mockito.Mockito
@@ -8,7 +7,7 @@ import java.time.Instant
 import java.time.Period
 
 class EventTest : TestCase() {
-    private val volunteer = EventVolunteer(VolunteerId(1), VolunteerName("test", "test"), listOf())
+    private val volunteer = EventVolunteer(1, VolunteerName("test", "test"), setOf())
     private var event = Event(1, EventName("t"), EventLocation("t"), EventTimeFrame(Instant.now(), Instant.now()))
 
     override fun setUp() {

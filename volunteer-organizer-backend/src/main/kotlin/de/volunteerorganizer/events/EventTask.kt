@@ -1,7 +1,5 @@
 package de.volunteerorganizer.events
 
-import de.volunteerorganizer.volunteer.VolunteerId
-
 /**
  * Class representing a task at an Event
  * @param name: name of task
@@ -12,7 +10,7 @@ class EventTask(
     override val id: Int,
     val name: String,
     override val timeFrame: EventTimeFrame,
-    private val featureRequirements: List<FeatureRequirement>,
+    private val featureRequirements: Set<FeatureRequirement>,
 ) : IEventTask {
     private val volunteers = mutableSetOf<EventVolunteer>()
 
@@ -36,7 +34,7 @@ class EventTask(
      * Removes volunteer from task
      * @param id: ID of volunteer to remove
      */
-    override fun removeVolunteer(id: VolunteerId) {
+    override fun removeVolunteer(id: Int) {
         volunteers.removeIf { v: EventVolunteer -> v.id == id }
     }
 

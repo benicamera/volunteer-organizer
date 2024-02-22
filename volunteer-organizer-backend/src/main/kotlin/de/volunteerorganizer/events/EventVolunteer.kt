@@ -1,7 +1,6 @@
 package de.volunteerorganizer.events
 
 import de.volunteerorganizer.volunteer.VolunteerFeature
-import de.volunteerorganizer.volunteer.VolunteerId
 import de.volunteerorganizer.volunteer.VolunteerName
 
 /**
@@ -10,7 +9,7 @@ import de.volunteerorganizer.volunteer.VolunteerName
  * @param name: name of Volunteer
  * @param features: list of features the volunteer has
  */
-class EventVolunteer(val id: VolunteerId, val name: VolunteerName, val features: List<VolunteerFeature>) {
+class EventVolunteer(val id: Int, val name: VolunteerName, val features: Set<VolunteerFeature>) {
     /**
      * Checks if volunteer has specific feature.
      * @param feature: feature to be checked

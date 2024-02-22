@@ -1,7 +1,5 @@
 package de.volunteerorganizer.events
 
-import de.volunteerorganizer.volunteer.VolunteerId
-
 interface IEventTask {
     val timeFrame: EventTimeFrame
     val id: Int
@@ -16,7 +14,7 @@ interface IEventTask {
      * Removes volunteer from task
      * @param id: ID of volunteer to remove
      */
-    fun removeVolunteer(id: VolunteerId)
+    fun removeVolunteer(id: Int)
 
     /**
      * Checks if task meets its requirements

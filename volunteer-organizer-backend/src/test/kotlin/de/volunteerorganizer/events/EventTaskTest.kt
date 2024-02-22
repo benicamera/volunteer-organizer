@@ -2,7 +2,6 @@ package de.volunteerorganizer.events
 
 import de.volunteerorganizer.utils.ValidIntRange
 import de.volunteerorganizer.volunteer.VolunteerFeature
-import de.volunteerorganizer.volunteer.VolunteerId
 import de.volunteerorganizer.volunteer.VolunteerName
 import junit.framework.TestCase
 import java.time.Instant
@@ -10,23 +9,23 @@ import java.time.Instant
 class EventTaskTest : TestCase() {
     private val feature1 = VolunteerFeature("feature1")
     private val featureRequirement1 = FeatureRequirement(VolunteerFeature("feature1"), ValidIntRange(1, 1))
-    private val volunteer1 = EventVolunteer(VolunteerId(1), VolunteerName("a", "a"), listOf(feature1))
-    private val volunteer2 = EventVolunteer(VolunteerId(2), VolunteerName("b", "b"), listOf(feature1))
-    private var task = EventTask(0, "", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+    private val volunteer1 = EventVolunteer(1, VolunteerName("a", "a"), setOf(feature1))
+    private val volunteer2 = EventVolunteer(2, VolunteerName("b", "b"), setOf(feature1))
+    private var task = EventTask(0, "", EventTimeFrame(Instant.now(), Instant.now()), setOf(featureRequirement1))
 
     override fun setUp() {
         super.setUp()
-        task = EventTask(1, "task", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+        task = EventTask(1, "task", EventTimeFrame(Instant.now(), Instant.now()), setOf(featureRequirement1))
     }
 
     fun testEqualsTrue() {
-        val task2 = EventTask(1, "task2", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+        val task2 = EventTask(1, "task2", EventTimeFrame(Instant.now(), Instant.now()), setOf(featureRequirement1))
         val shouldBeTrue = (task == task2)
         assertTrue(shouldBeTrue)
     }
 
     fun testEqualsFalse() {
-        val task2 = EventTask(2, "task", EventTimeFrame(Instant.now(), Instant.now()), listOf(featureRequirement1))
+        val task2 = EventTask(2, "task", EventTimeFrame(Instant.now(), Instant.now()), setOf(featureRequirement1))
         val shouldBeFalse = (task == task2)
         assertFalse(shouldBeFalse)
     }
