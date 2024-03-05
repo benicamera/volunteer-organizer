@@ -1,6 +1,5 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.domain.events.EventName
 import junit.framework.TestCase
 
 class EventNameTest : TestCase() {

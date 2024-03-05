@@ -1,6 +1,5 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.domain.events.EventVolunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import junit.framework.TestCase

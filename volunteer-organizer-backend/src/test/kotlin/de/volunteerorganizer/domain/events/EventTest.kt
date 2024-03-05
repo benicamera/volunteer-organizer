@@ -1,6 +1,5 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.domain.events.*
 import de.volunteerorganizer.domain.events.location.EventLocation
 import de.volunteerorganizer.domain.events.location.IEventAddress
 import de.volunteerorganizer.domain.volunteer.VolunteerName

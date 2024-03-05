@@ -1,6 +1,5 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.domain.events.EventTimeFrame
 import junit.framework.TestCase
 import java.time.Instant
 import java.time.Period
