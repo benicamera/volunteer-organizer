@@ -27,7 +27,45 @@ Dieser Begriff bezeichnet den Ort, an dem eine Veranstaltung stattfindet. Der Or
 \paragraph{\glqq Organisator\grqq{} (Organizer)}
 Dieser Begriff bezeichnet ein Vereinsmitglied, das eine Veranstaltung organisiert. Zur Organisation gehört das Festlegen von Ort und Zeit, das Festlegen von Aufgaben und das Einladen von Freiwilligen.
 
+\paragraph{Veranstaltungszeitraum}
+Der Veranstaltungszeitraum bezeichnet den Zeitraum, in dem eine Veranstaltung stattfindet.
+Dieser Zeitraum kann sich über wenige Stunden, einen Tag oder auch mehrere Tage erstrecken.
+
 \subsection{Domain Events}
+
+\paragraph{\glqq Freiwilliger hat sich für eine Aufgabe gemeldet\grqq}
+Dieses Domain Event wird ausgelöst, wenn sich ein Freiwilliger für eine Aufgabe gemeldet hat. Dieses Event kann dazu genutzt werden, um den Organisator zu informieren, dass die Aufgabe besetzt ist.
+
+\paragraph{\glqq Freiwilliger hat sich für eine Aufgabe abgemeldet\grqq}
+Dieses Domain Event wird ausgelöst, wenn sich ein Freiwilliger für eine Aufgabe abgemeldet hat. Dieses Event kann dazu genutzt werden, um den Organisator zu informieren, dass die Aufgabe wieder frei ist.
+
+\paragraph{\glqq Veranstaltungsort geändert\grqq}
+Dieses Domain Event wird ausgelöst, wenn sich der Veranstaltungsort einer Veranstaltung geändert hat. Dieses Event kann dazu genutzt werden, um die Freiwilligen zu informieren, dass sich der Veranstaltungsort geändert hat.
+
+\paragraph{\glqq Veranstaltungszeitraum geändert\grqq}
+Dieses Domain Event wird ausgelöst, wenn sich der Veranstaltungszeitraum einer Veranstaltung geändert hat. Dieses Event kann dazu genutzt werden, um die Freiwilligen zu informieren, dass sich der Veranstaltungszeitraum geändert hat.
+
+\paragraph{\glqq Veranstaltung abgesagt\grqq}
+Dieses Domain Event wird ausgelöst, wenn eine Veranstaltung abgesagt wurde. Dieses Event kann dazu genutzt werden, um die Freiwilligen zu informieren, dass die Veranstaltung abgesagt wurde.
+
+\paragraph{\glqq Veranstaltung durchgeführt\grqq}
+Dieses Domain Event wird ausgelöst, wenn eine Veranstaltung durchgeführt wurde.
+
+\paragraph{\glqq Veranstaltung erstellt\grqq}
+Dieses Domain Event wird ausgelöst, wenn eine Veranstaltung erstellt wurde. Es kann dazu genutzt werden, um die Mitglieder zu informieren, dass eine neue Veranstaltung erstellt wurde.
 
 \section{Analyse und Begründung der verwendeten Muster}
 \label{section:analyse_und_begrundung_der_verwendeten_muster}
+
+Ein Veranstaltungsort wird als Value Object modelliert, da er nur durch seine Werte definiert ist (Name und Adresse) und ein Veranstaltungsort immutable ist.
+
+Aus dem gleichen Grund wird auch ein Veranstaltungszeitraum als Value Object modelliert, weil ein Zeitraum unveränderlich durch seine Start- und Endzeit definiert ist.
+
+Dahingegen wird ein Freiwilliger als Entity modelliert, da er eindeutig durch seine Identität (ID-Nummer) definiert ist und sich z.B. seine Eigenschaften, aber auch sein Name ändern kann.
+Somit ist ein Freiwilliger mutable. Daraus folgt, dass auch ein Organisator und ein Mitglied als Entity modelliert werden.
+
+\todo{Aggregat vs Entity klären}
+Eine Aufgabe ist nach dem Domain Driven Design ein Aggregat, weil es aus mehreren Entities (Freiwillige) und Value Objects (Veranstaltungszeitraum) besteht und eine eigene Lebenszyklus-Logik hat.
+
+Ein Event ist nach Domain Driven Design ein Aggregat, weil es aus mehreren Entities (Aufgaben) und Value Objects (Veranstaltungsort) besteht und eine eigene Lebenszyklus-Logik hat. Ein Event ist also eine Aggregatwurzel, die die Lebenszyklus-Logik für die Entities und Value Objects in einem Event definiert.
+
