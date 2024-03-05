@@ -1,4 +1,4 @@
-package de.volunteerorganizer.events.location
+package de.volunteerorganizer.domain.events.location
 
 import io.ktor.http.Url
 

@@ -1,7 +1,7 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.utils.IValidValues
-import de.volunteerorganizer.volunteer.VolunteerFeature
 
 /**
  * Class representing a feature requirement of a task

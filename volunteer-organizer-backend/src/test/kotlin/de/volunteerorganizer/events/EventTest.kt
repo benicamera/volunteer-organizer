@@ -1,8 +1,9 @@
 package de.volunteerorganizer.events
 
-import de.volunteerorganizer.events.location.EventLocation
-import de.volunteerorganizer.events.location.IEventAddress
-import de.volunteerorganizer.volunteer.VolunteerName
+import de.volunteerorganizer.domain.events.*
+import de.volunteerorganizer.domain.events.location.EventLocation
+import de.volunteerorganizer.domain.events.location.IEventAddress
+import de.volunteerorganizer.domain.volunteer.VolunteerName
 import junit.framework.TestCase
 import org.mockito.Mockito
 import java.time.Instant

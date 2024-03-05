@@ -1,6 +1,6 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.events.location.EventLocation
+import de.volunteerorganizer.domain.events.location.EventLocation
 
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
     private val tasks = mutableSetOf<IEventTask>()

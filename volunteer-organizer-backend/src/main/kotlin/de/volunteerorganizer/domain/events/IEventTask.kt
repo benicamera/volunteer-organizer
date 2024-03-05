@@ -1,4 +1,4 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
 interface IEventTask {
     val timeFrame: EventTimeFrame

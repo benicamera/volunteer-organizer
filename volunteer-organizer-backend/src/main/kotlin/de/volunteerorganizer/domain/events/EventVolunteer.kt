@@ -1,7 +1,7 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
-import de.volunteerorganizer.volunteer.VolunteerFeature
-import de.volunteerorganizer.volunteer.VolunteerName
+import de.volunteerorganizer.domain.volunteer.VolunteerFeature
+import de.volunteerorganizer.domain.volunteer.VolunteerName
 
 /**
  * Data class for a Volunteer with event participation

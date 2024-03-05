@@ -1,4 +1,4 @@
-package de.volunteerorganizer.volunteer
+package de.volunteerorganizer.domain.volunteer
 
 /**
  * Name of Volunteer

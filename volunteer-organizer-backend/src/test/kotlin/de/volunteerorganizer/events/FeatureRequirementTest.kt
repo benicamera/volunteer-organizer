@@ -1,8 +1,10 @@
 package de.volunteerorganizer.events
 
+import de.volunteerorganizer.domain.events.EventVolunteer
+import de.volunteerorganizer.domain.events.FeatureRequirement
+import de.volunteerorganizer.domain.volunteer.VolunteerFeature
+import de.volunteerorganizer.domain.volunteer.VolunteerName
 import de.volunteerorganizer.utils.ValidIntRange
-import de.volunteerorganizer.volunteer.VolunteerFeature
-import de.volunteerorganizer.volunteer.VolunteerName
 import junit.framework.TestCase
 
 class FeatureRequirementTest : TestCase() {

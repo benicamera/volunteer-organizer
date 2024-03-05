@@ -1,4 +1,4 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
 import java.time.Instant
 

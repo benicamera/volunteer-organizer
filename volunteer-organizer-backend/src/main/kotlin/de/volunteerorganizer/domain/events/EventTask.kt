@@ -1,4 +1,4 @@
-package de.volunteerorganizer.events
+package de.volunteerorganizer.domain.events
 
 /**
  * Class representing a task at an Event
