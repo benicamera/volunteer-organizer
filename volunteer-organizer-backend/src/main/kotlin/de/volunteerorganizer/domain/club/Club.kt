@@ -14,18 +14,18 @@ class Club(val id: Int, val info: ClubInfo) {
      * Adds volunteer to set of club members
      * @param newMember the volunteer instance to be added
      */
-    fun addMember(newMember: Volunteer){
-        members.add(newMember);
+    fun addMember(newMember: Volunteer) {
+        members.add(newMember)
     }
 
     /**
      * Removes member with given ID from club
      * @param memberId ID of member to be removed
      */
-    fun removeMember(memberId: Int){
+    fun removeMember(memberId: Int) {
         removeOrganizer(memberId)
         // TODO: also remove from tasks?
-        members.removeIf {m -> m.id == memberId}
+        members.removeIf { m -> m.id == memberId }
     }
 
     /**
@@ -39,7 +39,7 @@ class Club(val id: Int, val info: ClubInfo) {
      * @throws IndexOutOfBoundsException if member cannot be found
      */
     @Throws(IndexOutOfBoundsException::class)
-    fun addOrganizer(memberId: Int){
+    fun addOrganizer(memberId: Int) {
         val newOrganizer = members.find { m -> m.id == memberId }
             ?: throw IndexOutOfBoundsException("Cannot find member with $memberId.")
         organizers.add(newOrganizer)
@@ -49,8 +49,8 @@ class Club(val id: Int, val info: ClubInfo) {
      * Demotes volunteer from organizer position
      * @param organizerId ID of organizer to be demoted
      */
-    fun removeOrganizer(organizerId: Int){
-        organizers.removeIf {o -> o.id == organizerId}
+    fun removeOrganizer(organizerId: Int) {
+        organizers.removeIf { o -> o.id == organizerId }
     }
 
     /**
@@ -62,7 +62,7 @@ class Club(val id: Int, val info: ClubInfo) {
      * Registers club event
      * @param newEvent event to be added to club
      */
-    fun addEvent(newEvent: Event){
+    fun addEvent(newEvent: Event) {
         events.add(newEvent)
     }
 
@@ -70,13 +70,12 @@ class Club(val id: Int, val info: ClubInfo) {
      * Removes event from club
      * @param eventId id of event to be removed
      */
-    fun removeEvent(eventId: Int){
-        events.removeIf {e -> e.id == eventId}
+    fun removeEvent(eventId: Int) {
+        events.removeIf { e -> e.id == eventId }
     }
 
     /**
      * @returns immutable set of events of this club
      */
     fun getEvents() = setOf(events)
-
 }

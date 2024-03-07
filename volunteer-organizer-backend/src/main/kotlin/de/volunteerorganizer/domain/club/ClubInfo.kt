@@ -7,9 +7,9 @@ import java.util.Date
  * @param name Name of the club (cannot be empty)
  * @param creationTime Time of club creation
  */
-data class ClubInfo(val name: String, val creationTime: Date){
+data class ClubInfo(val name: String, val creationTime: Date) {
     init {
-        require(name.isNotEmpty()){
+        require(name.isNotEmpty()) {
             "Club name must not be empty."
         }
     }
