@@ -1,5 +1,6 @@
 package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.Volunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.utils.IValidValues
 
@@ -14,7 +15,7 @@ class FeatureRequirement(private val feature: VolunteerFeature, private val vali
      * @param volunteers: set of volunteers
      * @return: `true` if the list of volunteers meets the requirements
      */
-    fun meets(volunteers: Set<EventVolunteer>): Boolean {
+    fun meets(volunteers: Set<Volunteer>): Boolean {
         var num = 0
         volunteers.forEach { vol -> if (vol.hasFeature(feature)) num++ }
         return validValues.isValid(num)

@@ -1,5 +1,6 @@
 package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.Volunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import de.volunteerorganizer.utils.ValidIntRange
@@ -9,8 +10,8 @@ import java.time.Instant
 class EventTaskTest : TestCase() {
     private val feature1 = VolunteerFeature("feature1")
     private val featureRequirement1 = FeatureRequirement(VolunteerFeature("feature1"), ValidIntRange(1, 1))
-    private val volunteer1 = EventVolunteer(1, VolunteerName("a", "a"), setOf(feature1))
-    private val volunteer2 = EventVolunteer(2, VolunteerName("b", "b"), setOf(feature1))
+    private val volunteer1 = Volunteer(1, VolunteerName("a", "a"), setOf(feature1))
+    private val volunteer2 = Volunteer(2, VolunteerName("b", "b"), setOf(feature1))
     private var task = EventTask(0, "", EventTimeFrame(Instant.now(), Instant.now()), setOf(featureRequirement1))
 
     override fun setUp() {

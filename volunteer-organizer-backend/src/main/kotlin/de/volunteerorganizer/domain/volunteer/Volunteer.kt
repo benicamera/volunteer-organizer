@@ -1,15 +1,12 @@
-package de.volunteerorganizer.domain.events
-
-import de.volunteerorganizer.domain.volunteer.VolunteerFeature
-import de.volunteerorganizer.domain.volunteer.VolunteerName
+package de.volunteerorganizer.domain.volunteer
 
 /**
- * Data class for a Volunteer with event participation
+ * Class for a Volunteer
  * @param id: Volunteer ID
  * @param name: name of Volunteer
  * @param features: list of features the volunteer has
  */
-class EventVolunteer(val id: Int, val name: VolunteerName, val features: Set<VolunteerFeature>) {
+class Volunteer(val id: Int, val name: VolunteerName, val features: Set<VolunteerFeature>) {
     /**
      * Checks if volunteer has specific feature.
      * @param feature: feature to be checked

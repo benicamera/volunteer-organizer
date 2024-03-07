@@ -2,6 +2,7 @@ package de.volunteerorganizer.domain.events
 
 import de.volunteerorganizer.domain.events.location.EventLocation
 import de.volunteerorganizer.domain.events.location.IEventAddress
+import de.volunteerorganizer.domain.volunteer.Volunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import junit.framework.TestCase
 import org.mockito.Mockito
@@ -9,7 +10,7 @@ import java.time.Instant
 import java.time.Period
 
 class EventTest : TestCase() {
-    private val volunteer = EventVolunteer(1, VolunteerName("test", "test"), setOf())
+    private val volunteer = Volunteer(1, VolunteerName("test", "test"), setOf())
     private val mockedAddress = Mockito.mock(IEventAddress::class.java)
     private var event = Event(1, EventName("t"), EventLocation("t", mockedAddress), EventTimeFrame(Instant.now(), Instant.now()))
 

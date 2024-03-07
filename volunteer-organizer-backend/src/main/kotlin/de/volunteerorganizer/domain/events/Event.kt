@@ -1,6 +1,7 @@
 package de.volunteerorganizer.domain.events
 
 import de.volunteerorganizer.domain.events.location.EventLocation
+import de.volunteerorganizer.domain.volunteer.Volunteer
 
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
     private val tasks = mutableSetOf<IEventTask>()
@@ -13,7 +14,7 @@ class Event(val id: Int, val name: EventName, val location: EventLocation, val t
      */
     fun addVolunteerToTask(
         taskId: Int,
-        volunteer: EventVolunteer,
+        volunteer: Volunteer,
     ) {
         tasks.find { t -> t.id == taskId }?.addVolunteer(volunteer)
     }

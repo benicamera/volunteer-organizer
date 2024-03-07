@@ -1,5 +1,7 @@
 package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.Volunteer
+
 interface IEventTask {
     val timeFrame: EventTimeFrame
     val id: Int
@@ -8,7 +10,7 @@ interface IEventTask {
      * Adds a volunteer to the list of volunteers
      * @param newVolunteer: volunteer to add to task
      */
-    fun addVolunteer(newVolunteer: EventVolunteer)
+    fun addVolunteer(newVolunteer: Volunteer)
 
     /**
      * Removes volunteer from task
@@ -26,5 +28,5 @@ interface IEventTask {
      * Get an immutable set of volunteers
      * @return immutable set of volunteers
      */
-    fun getVolunteers(): Set<EventVolunteer>
+    fun getVolunteers(): Set<Volunteer>
 }

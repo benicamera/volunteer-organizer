@@ -1,14 +1,12 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.volunteer
 
-import de.volunteerorganizer.domain.volunteer.VolunteerFeature
-import de.volunteerorganizer.domain.volunteer.VolunteerName
 import junit.framework.TestCase
 
-class EventVolunteerTest : TestCase() {
+class VolunteerTest : TestCase() {
     private val feature1 = VolunteerFeature("hello")
     private val features1 = setOf(feature1)
     private val name1 = VolunteerName("test1", "test1")
-    private val vol1 = EventVolunteer(1, name1, features1)
+    private val vol1 = Volunteer(1, name1, features1)
 
     fun testHasFeatureTrue() {
         val shouldBeTrue = vol1.hasFeature(feature1)

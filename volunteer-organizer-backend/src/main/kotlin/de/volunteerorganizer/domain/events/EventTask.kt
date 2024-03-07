@@ -1,5 +1,7 @@
 package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.Volunteer
+
 /**
  * Class representing a task at an Event
  * @param name: name of task
@@ -12,7 +14,7 @@ class EventTask(
     override val timeFrame: EventTimeFrame,
     private val featureRequirements: Set<FeatureRequirement>,
 ) : IEventTask {
-    private val volunteers = mutableSetOf<EventVolunteer>()
+    private val volunteers = mutableSetOf<Volunteer>()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true // is the very same instance
@@ -25,7 +27,7 @@ class EventTask(
      * Adds a volunteer to the list of volunteers
      * @param newVolunteer: volunteer to add to task
      */
-    override fun addVolunteer(newVolunteer: EventVolunteer) {
+    override fun addVolunteer(newVolunteer: Volunteer) {
         // maybe add feature requirements checking
         volunteers.add(newVolunteer)
     }
@@ -35,7 +37,7 @@ class EventTask(
      * @param id: ID of volunteer to remove
      */
     override fun removeVolunteer(id: Int) {
-        volunteers.removeIf { v: EventVolunteer -> v.id == id }
+        volunteers.removeIf { v: Volunteer -> v.id == id }
     }
 
     /**
@@ -52,7 +54,7 @@ class EventTask(
      * Get an immutable set of volunteers
      * @return immutable set of volunteers
      */
-    override fun getVolunteers(): Set<EventVolunteer> = volunteers.toSet()
+    override fun getVolunteers(): Set<Volunteer> = volunteers.toSet()
 
     override fun hashCode(): Int {
         return id

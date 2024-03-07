@@ -1,5 +1,6 @@
 package de.volunteerorganizer.domain.events
 
+import de.volunteerorganizer.domain.volunteer.Volunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import de.volunteerorganizer.utils.ValidIntRange
@@ -12,8 +13,8 @@ class FeatureRequirementTest : TestCase() {
     private val feature1 = VolunteerFeature("feature1")
     private val features1 = setOf(testFeature, feature1)
     private val features2 = setOf(feature1, VolunteerFeature("feature2"))
-    private val volunteer1 = EventVolunteer(1, VolunteerName("a", "a"), features1)
-    private val volunteer2 = EventVolunteer(2, VolunteerName("b", "b"), features2)
+    private val volunteer1 = Volunteer(1, VolunteerName("a", "a"), features1)
+    private val volunteer2 = Volunteer(2, VolunteerName("b", "b"), features2)
     private val volunteers = setOf(volunteer1, volunteer2)
 
     fun testMeetsTrue() {
