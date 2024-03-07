@@ -1,11 +1,11 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
-import de.volunteerorganizer.domain.events.location.EventLocation
+import de.volunteerorganizer.domain.event.location.EventLocation
 import kotlin.jvm.Throws
 
 /**
  * Repository for the Event class
- * @see de.volunteerorganizer.domain.events.Event
+ * @see de.volunteerorganizer.domain.event.Event
  */
 interface IEventRepository {
     /**
@@ -36,24 +36,24 @@ interface IEventRepository {
     fun findById(id: Int): Event?
 
     /**
-     * Searches for events at specific location.
-     * @param location location where searched events are taking place
+     * Searches for event at specific location.
+     * @param location location where searched event are taking place
      * @returns A set of event at this location (empty set if none found)
      */
     fun findByLocation(location: EventLocation): Set<Event>
 
     /**
-     * Searches for events that take place within the given timeframe.
+     * Searches for event that take place within the given timeframe.
      * An event is chosen if at least one task starts and ends (inclusive) inside the specified time frame
      * @param timeFrame The time frame where tasks must lie inside of
-     * @returns A set of all qualifying events (empty set if none found)
+     * @returns A set of all qualifying event (empty set if none found)
      */
     fun findByTimeFrame(timeFrame: EventTimeFrame): Set<Event>
 
     /**
-     * Searches for events for which a specified volunteer volunteers.
+     * Searches for event for which a specified volunteer volunteers.
      * @param volunteerId ID of volunteer to search for
-     * @returns A set of qualifying events (empty set if none found)
+     * @returns A set of qualifying event (empty set if none found)
      */
     fun findByVolunteer(volunteerId: Int): Set<Event>
 }

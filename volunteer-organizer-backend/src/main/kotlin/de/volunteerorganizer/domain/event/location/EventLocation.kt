@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events.location
+package de.volunteerorganizer.domain.event.location
 
 /**
  * Data class holding a location that can be used for Events

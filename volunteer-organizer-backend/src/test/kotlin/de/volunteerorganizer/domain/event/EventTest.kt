@@ -1,7 +1,7 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
-import de.volunteerorganizer.domain.events.location.EventLocation
-import de.volunteerorganizer.domain.events.location.IEventAddress
+import de.volunteerorganizer.domain.event.location.EventLocation
+import de.volunteerorganizer.domain.event.location.IEventAddress
 import de.volunteerorganizer.domain.volunteer.Volunteer
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import junit.framework.TestCase

@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events.location
+package de.volunteerorganizer.domain.event.location
 
 data class PhysicalAddress(
     private val street: String,

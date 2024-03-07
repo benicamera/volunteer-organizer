@@ -1,6 +1,6 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
-import de.volunteerorganizer.domain.events.location.EventLocation
+import de.volunteerorganizer.domain.event.location.EventLocation
 import de.volunteerorganizer.domain.volunteer.Volunteer
 
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {

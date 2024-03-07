@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
 /**
  * Data class containing an event name

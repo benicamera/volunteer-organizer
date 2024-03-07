@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
 import junit.framework.TestCase
 

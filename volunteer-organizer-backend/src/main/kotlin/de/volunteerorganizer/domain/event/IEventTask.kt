@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events
+package de.volunteerorganizer.domain.event
 
 import de.volunteerorganizer.domain.volunteer.Volunteer
 

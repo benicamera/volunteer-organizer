@@ -1,4 +1,4 @@
-package de.volunteerorganizer.domain.events.location
+package de.volunteerorganizer.domain.event.location
 
 /**
  * Interface representing an Event Address
