@@ -1,13 +1,15 @@
 package de.volunteerorganizer.application.events
 
+import de.volunteerorganizer.domain.club.IClubRepository
 import de.volunteerorganizer.domain.event.*
 
 /**
  * Service covering event creation, event edit and event listing use cases.
  * TODO: refine to not make it dependant on domain?
  * @param eventRepository repository for events to be used
+ * @param clubRepository repository for clubs to be used
  */
-class EventApplicationService(private val eventRepository: IEventRepository) {
+class EventApplicationService(private val eventRepository: IEventRepository, private val clubRepository: IClubRepository) {
     /**
      * Method for creating event use case
      * @param issuerId ID of volunteer issuing event creation
@@ -15,13 +17,27 @@ class EventApplicationService(private val eventRepository: IEventRepository) {
      */
     fun createEvent(
         issuerId: Int,
+        clubId: Int,
         eventInformation: EventEdit,
     ) {
         // check if volunteer with issuer id is allowed to create event
+        val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("club with id not found")
+
+        if (!club.isOrganizer(issuerId))
+            {
+                throw IllegalArgumentException("issuer is not allowed") // TODO: refine error
+            }
 
         // create event instance
+        val eventName = eventInformation.name ?: throw IllegalArgumentException("event information must not contain null fields")
+        val eventTimeFrame = eventInformation.timeFrame ?: throw IllegalArgumentException("event information must not contain null fields")
+        val eventLocation = eventInformation.location ?: throw IllegalArgumentException("event information must not contain null fields")
+        val eventId = eventRepository.generateNewEventId()
+
+        val event = Event(eventId, eventName, eventLocation, eventTimeFrame)
 
         // save event instance
+        eventRepository.saveEvent(event)
     }
 
     /**
