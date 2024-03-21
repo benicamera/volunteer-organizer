@@ -75,7 +75,5 @@ class Event(val id: Int, val name: EventName, val location: EventLocation, val t
         return id == other.id
     }
 
-    override fun hashCode(): Int {
-        return id
-    }
+    override fun hashCode(): Int = id
 }

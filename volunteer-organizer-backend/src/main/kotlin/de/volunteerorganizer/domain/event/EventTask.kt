@@ -56,7 +56,5 @@ class EventTask(
      */
     override fun getVolunteers(): Set<Volunteer> = volunteers.toSet()
 
-    override fun hashCode(): Int {
-        return id
-    }
+    override fun hashCode(): Int = id
 }
