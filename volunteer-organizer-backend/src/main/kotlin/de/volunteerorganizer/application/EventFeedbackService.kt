@@ -13,7 +13,7 @@ class EventFeedbackService(private val eventRepository: IEventRepository) {
      * @param issuerId ID of volunteer issuing register use case
      * @param eventId ID of the event to register to
      */
-    fun registerToEvent(issuerId: Int, eventId: Int){
+    fun registerToEvent(issuerId: Int, eventId: Int) {
         // get event with event id
 
         // get volunteer instance with issuer id
@@ -28,7 +28,7 @@ class EventFeedbackService(private val eventRepository: IEventRepository) {
      * @param issuerId ID of volunteer issuing the use case
      * @param eventId ID of event to deregister from
      */
-    fun deregisterFromEvent(issuerId: Int, eventId: Int){
+    fun deregisterFromEvent(issuerId: Int, eventId: Int) {
         // get event with event id
 
         // remove volunteer with id from event
