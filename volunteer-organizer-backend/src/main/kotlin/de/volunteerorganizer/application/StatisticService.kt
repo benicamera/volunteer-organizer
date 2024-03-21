@@ -14,8 +14,7 @@ class StatisticService(private val eventRepository: IEventRepository) {
      * @param volunteerId ID of the volunteer to get the statistics from
      * @returns the found statistics
      */
-    fun getVolunteerStatistic(issuerId: Int, volunteerId: Int): Statistics{
-
+    fun getVolunteerStatistic(issuerId: Int, volunteerId: Int): Statistics {
         // check if issuer is entitled to perform this use case
 
         // collect statistics for volunteer with volunteer id
@@ -30,8 +29,7 @@ class StatisticService(private val eventRepository: IEventRepository) {
      * @param eventId ID of the event to get the statistics from
      * @returns the found statistics
      */
-    fun getEventStatistic(issuerId: Int, eventId: Int): Statistics{
-
+    fun getEventStatistic(issuerId: Int, eventId: Int): Statistics {
         // check if issuer is entitled to perform this use case
 
         // collect statistics of event
