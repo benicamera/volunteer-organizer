@@ -50,5 +50,4 @@ interface IClubRepository {
      * @returns A set of all clubs the given volunteer is an organizer of. Empty if none found.
      */
     fun findByOrganizer(organizer: Volunteer): Set<Club>
-
 }
