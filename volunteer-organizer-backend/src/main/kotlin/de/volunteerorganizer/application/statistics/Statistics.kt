@@ -1,4 +1,4 @@
-package de.volunteerorganizer.application
+package de.volunteerorganizer.application.statistics
 
 /**
  * @param registrations number of registrations

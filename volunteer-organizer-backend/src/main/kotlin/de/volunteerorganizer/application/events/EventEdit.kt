@@ -1,4 +1,4 @@
-package de.volunteerorganizer.application
+package de.volunteerorganizer.application.events
 
 import de.volunteerorganizer.domain.event.EventName
 import de.volunteerorganizer.domain.event.EventTimeFrame

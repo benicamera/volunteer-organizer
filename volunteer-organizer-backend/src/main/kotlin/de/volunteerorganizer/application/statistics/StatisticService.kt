@@ -1,4 +1,4 @@
-package de.volunteerorganizer.application
+package de.volunteerorganizer.application.statistics
 
 import de.volunteerorganizer.domain.event.IEventRepository
 
