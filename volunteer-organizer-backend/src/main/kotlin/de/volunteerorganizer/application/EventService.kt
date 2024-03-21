@@ -70,7 +70,8 @@ class EventService (private val eventRepository: IEventRepository) {
     }
 
     /**
-     * Method for edit event use case
+     * Method for edit event use case.
+     * Null fields of eventEdit are not changed.
      * @param issuerId ID of volunteer issuing the edit use case
      * @param eventId ID of event to be edited
      * @param eventEdit edits to be made
