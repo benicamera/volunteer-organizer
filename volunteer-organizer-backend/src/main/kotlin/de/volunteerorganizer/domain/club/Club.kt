@@ -5,6 +5,7 @@ import de.volunteerorganizer.domain.volunteer.Volunteer
 import kotlin.IndexOutOfBoundsException
 import kotlin.jvm.Throws
 
+// TODO: loosen cuppling by using ids
 class Club(val id: Int, val info: ClubInfo) {
     private val members = mutableSetOf<Volunteer>()
     private val organizers = mutableSetOf<Volunteer>()
@@ -40,8 +41,9 @@ class Club(val id: Int, val info: ClubInfo) {
      */
     @Throws(IndexOutOfBoundsException::class)
     fun addOrganizer(memberId: Int) {
-        val newOrganizer = members.find { m -> m.id == memberId }
-            ?: throw IndexOutOfBoundsException("Cannot find member with $memberId.")
+        val newOrganizer =
+            members.find { m -> m.id == memberId }
+                ?: throw IndexOutOfBoundsException("Cannot find member with $memberId.")
         organizers.add(newOrganizer)
     }
 
@@ -51,6 +53,10 @@ class Club(val id: Int, val info: ClubInfo) {
      */
     fun removeOrganizer(organizerId: Int) {
         organizers.removeIf { o -> o.id == organizerId }
+    }
+
+    fun isOrganizer(volunteerId: Int): Boolean {
+        return organizers.count { o -> o.id == volunteerId } > 0
     }
 
     /**
