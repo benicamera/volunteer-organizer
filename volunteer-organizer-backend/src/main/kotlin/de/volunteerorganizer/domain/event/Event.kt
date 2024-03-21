@@ -3,6 +3,7 @@ package de.volunteerorganizer.domain.event
 import de.volunteerorganizer.domain.event.location.EventLocation
 import de.volunteerorganizer.domain.volunteer.Volunteer
 
+// TODO rewrite to "lose Referenz mit ids"
 class Event(val id: Int, val name: EventName, val location: EventLocation, val timeFrame: EventTimeFrame) {
     private val tasks = mutableSetOf<IEventTask>()
     // TODO: private id setter

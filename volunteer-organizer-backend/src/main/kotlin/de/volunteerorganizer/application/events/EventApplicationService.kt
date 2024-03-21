@@ -7,7 +7,7 @@ import de.volunteerorganizer.domain.event.*
  * TODO: refine to not make it dependant on domain?
  * @param eventRepository repository for events to be used
  */
-class EventService(private val eventRepository: IEventRepository) {
+class EventApplicationService(private val eventRepository: IEventRepository) {
     /**
      * Method for creating event use case
      * @param issuerId ID of volunteer issuing event creation
