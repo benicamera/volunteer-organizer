@@ -2,9 +2,11 @@ package de.volunteerorganizer.domain.event
 
 import de.volunteerorganizer.domain.volunteer.Volunteer
 
+// TODO: is it necessary?
 interface IEventTask {
     val timeFrame: EventTimeFrame
     val id: Int
+    val name: String
 
     /**
      * Adds a volunteer to the list of volunteers

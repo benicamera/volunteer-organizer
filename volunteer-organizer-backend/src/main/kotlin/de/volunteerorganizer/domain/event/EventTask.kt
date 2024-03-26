@@ -10,7 +10,7 @@ import de.volunteerorganizer.domain.volunteer.Volunteer
  */
 class EventTask(
     override val id: Int,
-    val name: String,
+    override val name: String,
     override val timeFrame: EventTimeFrame,
     private val featureRequirements: Set<FeatureRequirement>,
 ) : IEventTask {
