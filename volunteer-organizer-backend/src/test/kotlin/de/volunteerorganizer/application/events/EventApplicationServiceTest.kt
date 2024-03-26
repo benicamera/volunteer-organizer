@@ -38,11 +38,11 @@ class EventApplicationServiceTest : TestCase() {
         val eventName = EventName("test")
         val eventLocation = EventLocation("test", VirtualAddress(Url("test.de")))
         val eventTimeFrame = EventTimeFrame(Instant.now(), Instant.now())
-        val event = Event(1, eventName, eventLocation, eventTimeFrame)
+        val event = Event(existingEventId, eventName, eventLocation, eventTimeFrame)
 
         val task = EventTask(0, "test", eventTimeFrame, setOf<FeatureRequirement>())
         event.addTask(task)
-        Mockito.`when`(mockEventRepo.findById(1)).thenReturn(event)
+        Mockito.`when`(mockEventRepo.findById(existingEventId)).thenReturn(event)
         Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(0)
     }
 
@@ -99,7 +99,7 @@ class EventApplicationServiceTest : TestCase() {
         val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
 
         // Act
-        eventApplicationService.removeTaskFromEvent(organizerId, clubId, 1, 0)
+        eventApplicationService.removeTaskFromEvent(organizerId, clubId, existingEventId, 0)
 
         // Assert
         Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
@@ -107,12 +107,49 @@ class EventApplicationServiceTest : TestCase() {
         assertFalse(capturedEvent.getTasks().count { t -> t.id == 0 } > 0)
     }
 
-    fun testEditEvent() {
+    fun testEditEventName() {
         // Arrange
+        val newName = EventName("notest")
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+        val edit = EventEdit(newName, null, null)
 
         // Act
+        eventApplicationService.editEvent(organizerId, clubId, existingEventId, edit)
 
         // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertEquals(EventName("notest"), capturedEvent.name)
+    }
+
+    fun testEditEventLocation() {
+        // Arrange
+        val newLocation = EventLocation("notest", VirtualAddress(Url("notest")))
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+        val edit = EventEdit(null, newLocation, null)
+
+        // Act
+        eventApplicationService.editEvent(organizerId, clubId, existingEventId, edit)
+
+        // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertEquals(newLocation, capturedEvent.location)
+    }
+
+    fun testEditEventTimeFrame() {
+        // Arrange
+        val newTimeFrame = EventTimeFrame(Instant.now(), Instant.now())
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+        val edit = EventEdit(null, null, newTimeFrame)
+
+        // Act
+        eventApplicationService.editEvent(organizerId, clubId, existingEventId, edit)
+
+        // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertEquals(newTimeFrame, capturedEvent.timeFrame)
     }
 
     fun testGetAllEvents() {}
