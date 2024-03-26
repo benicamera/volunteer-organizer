@@ -1,10 +1,59 @@
 package de.volunteerorganizer.application.events
 
+import de.volunteerorganizer.domain.club.Club
+import de.volunteerorganizer.domain.club.ClubInfo
+import de.volunteerorganizer.domain.club.IClubRepository
+import de.volunteerorganizer.domain.event.*
+import de.volunteerorganizer.domain.event.location.EventLocation
+import de.volunteerorganizer.domain.event.location.VirtualAddress
+import de.volunteerorganizer.domain.volunteer.Volunteer
+import de.volunteerorganizer.domain.volunteer.VolunteerFeature
+import de.volunteerorganizer.domain.volunteer.VolunteerName
+import io.ktor.http.*
 import junit.framework.TestCase
+import org.mockito.ArgumentCaptor
+import org.mockito.Mockito
+import org.mockito.kotlin.KArgumentCaptor
+import java.time.Instant
+import java.util.*
 
 class EventFeedbackApplicationServiceTest : TestCase() {
+    private val mockEventRepo = Mockito.mock(IEventRepository::class.java)
+    private val mockClubRepo = Mockito.mock(IClubRepository::class.java)
+    private val eventFAService = EventFeedbackApplicationService(mockEventRepo, mockClubRepo)
+    private val existingVolunteerId = 1
+    private val existingClubId = 0
+    private val existingEventId = 0
+    private val existingTaskId = 0
 
-    fun testRegisterToEvent() {}
+    override fun setUp() {
+        val club = Club(existingClubId, ClubInfo("test", Date.from(Instant.now())))
+        val volunteer = Volunteer(existingVolunteerId, VolunteerName("test", "test"), setOf<VolunteerFeature>())
+        club.addMember(volunteer)
+
+        val timeFrame = EventTimeFrame(Instant.now(), Instant.now())
+        val task = EventTask(existingTaskId, "test", timeFrame, setOf<FeatureRequirement>())
+
+        val location = EventLocation("test", VirtualAddress(Url("test")))
+        val event = Event(existingEventId, EventName("test"), location, timeFrame)
+        event.addTask(task)
+
+        Mockito.`when`(mockEventRepo.findById(existingEventId)).thenReturn(event)
+        Mockito.`when`(mockClubRepo.findById(existingClubId)).thenReturn(club)
+    }
+
+    fun testRegisterToEvent() {
+        // Arrange
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+
+        // Act
+        eventFAService.registerToEvent(existingVolunteerId, existingEventId, existingClubId, existingTaskId)
+
+        // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertTrue(capturedEvent.getTasks().find { t -> t.id == existingTaskId }!!.getVolunteers().any { v -> v.id == existingVolunteerId })
+    }
 
     fun testDeregisterFromEvent() {}
 }
