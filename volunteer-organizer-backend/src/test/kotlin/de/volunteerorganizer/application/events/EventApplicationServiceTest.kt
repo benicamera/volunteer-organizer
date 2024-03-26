@@ -92,8 +92,8 @@ class EventApplicationServiceTest : TestCase() {
         )
 
         // Assert
-        Mockito.verify(mockTaskRepo.generateNewTaskId())
-        Mockito.verify(mockTaskRepo.save(EventTask(0, newTaskName, newTaskTimeFrame, newTaskFeatureRequirement)))
+        Mockito.verify(mockTaskRepo).generateNewTaskId()
+        Mockito.verify(mockTaskRepo).save(EventTask(0, newTaskName, newTaskTimeFrame, newTaskFeatureRequirement))
         // TODO: check if task is also saved in Event that is saved
     }
 
