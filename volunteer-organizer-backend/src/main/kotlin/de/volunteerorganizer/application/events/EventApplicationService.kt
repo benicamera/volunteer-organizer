@@ -1,7 +1,12 @@
 package de.volunteerorganizer.application.events
 
 import de.volunteerorganizer.domain.club.IClubRepository
-import de.volunteerorganizer.domain.event.*
+import de.volunteerorganizer.domain.event.Event
+import de.volunteerorganizer.domain.event.EventTask
+import de.volunteerorganizer.domain.event.EventTimeFrame
+import de.volunteerorganizer.domain.event.FeatureRequirement
+import de.volunteerorganizer.domain.event.IEventRepository
+import de.volunteerorganizer.domain.event.ITaskRepository
 import kotlin.jvm.Throws
 
 /**
@@ -10,7 +15,11 @@ import kotlin.jvm.Throws
  * TODO: maybe get clubIds from event?
  * @param eventRepository repository for events to be used
  */
-class EventApplicationService(private val eventRepository: IEventRepository, private val clubRepository: IClubRepository, private val taskRepository: ITaskRepository) {
+class EventApplicationService(
+    private val eventRepository: IEventRepository,
+    private val clubRepository: IClubRepository,
+    private val taskRepository: ITaskRepository,
+) {
     /**
      * Method for creating event use case.
      * @param issuerId ID of volunteer issuing event creation
@@ -181,10 +190,13 @@ class EventApplicationService(private val eventRepository: IEventRepository, pri
      * @throws IllegalAccessException if issuer is not organizer in the club
      */
     @Throws(IllegalArgumentException::class, IllegalAccessException::class)
-    fun checkOrganizerPermission(issuerId: Int, clubId: Int){
+    fun checkOrganizerPermission(
+        issuerId: Int,
+        clubId: Int,
+    ) {
         // TODO: refine exceptions
         val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("Club with ID $clubId not found.")
-        if(!club.isOrganizer(issuerId)){
+        if (!club.isOrganizer(issuerId)) {
             throw IllegalAccessException("Volunteer with ID $issuerId is not an organizer.")
         }
     }
