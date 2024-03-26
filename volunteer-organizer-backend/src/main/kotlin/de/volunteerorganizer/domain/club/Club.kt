@@ -19,12 +19,12 @@ class Club(val id: Int, val info: ClubInfo) {
     }
 
     /**
-     * Removes member with given ID from club
+     * Removes member with given ID from club and all associated tasks
      * @param memberId ID of member to be removed
      */
     fun removeMember(memberId: Int) {
+        events.forEach { e -> e.getTasks().forEach { t -> e.removeVolunteerFromTask(t.id, memberId) } }
         removeOrganizer(memberId)
-        // TODO: also remove from tasks?
         members.removeIf { m -> m.id == memberId }
     }
 
