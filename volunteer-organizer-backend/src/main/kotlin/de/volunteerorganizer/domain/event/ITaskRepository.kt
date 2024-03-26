@@ -1,7 +1,7 @@
 package de.volunteerorganizer.domain.event
 
+// TODO: completely unnecessary I guess
 interface ITaskRepository {
-
     /**
      * Saves given task to persistence layer.
      * @param task task to be saved

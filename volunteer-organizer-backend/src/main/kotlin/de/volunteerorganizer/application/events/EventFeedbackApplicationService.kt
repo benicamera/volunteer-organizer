@@ -6,7 +6,8 @@ import kotlin.jvm.Throws
 
 /**
  * Service for registering and de-registering to event use case
- * @param eventRepository repository to be used to
+ * @param eventRepository event repository to be used
+ * @param clubRepository club repository to be used
  */
 class EventFeedbackApplicationService(private val eventRepository: IEventRepository, private val clubRepository: IClubRepository) {
     /**

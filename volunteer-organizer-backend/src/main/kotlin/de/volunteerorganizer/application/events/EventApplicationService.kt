@@ -14,6 +14,8 @@ import kotlin.jvm.Throws
  * TODO: refine to not make it dependant on domain?
  * TODO: maybe get clubIds from event?
  * @param eventRepository repository for events to be used
+ * @param clubRepository repository for clubs to be used
+ * @param taskRepository repository for tasks to be used
  */
 class EventApplicationService(
     private val eventRepository: IEventRepository,
