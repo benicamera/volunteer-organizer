@@ -54,9 +54,7 @@ class Club(val id: Int, val info: ClubInfo) {
         organizers.removeIf { o -> o.id == organizerId }
     }
 
-    fun isOrganizer(volunteerId: Int): Boolean {
-        return organizers.count { o -> o.id == volunteerId } > 0
-    }
+    fun isOrganizer(volunteerId: Int): Boolean = organizers.count { o -> o.id == volunteerId } > 0
 
     /**
      * @return immutable set of organizers
