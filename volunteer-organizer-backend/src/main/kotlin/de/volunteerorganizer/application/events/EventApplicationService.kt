@@ -1,5 +1,6 @@
 package de.volunteerorganizer.application.events
 
+import de.volunteerorganizer.application.UnauthorizedCallException
 import de.volunteerorganizer.domain.club.IClubRepository
 import de.volunteerorganizer.domain.event.Event
 import de.volunteerorganizer.domain.event.EventTask
@@ -27,10 +28,11 @@ class EventApplicationService(
      * @param issuerId ID of volunteer issuing event creation
      * @param clubId ID of club to perform the action on
      * @param eventInformation Information for event creation. No member of instance can be null
-     * @throws IllegalArgumentException if club is not found or eventInformation field is null
-     * @throws IllegalAccessException if issuer is no organizer of club
+     * @throws IllegalArgumentException if eventInformation field is null
+     * @throws UnauthorizedCallException if issuer is no organizer of club
+     * @throws NoSuchElementException if club or event is not found
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(IllegalArgumentException::class, UnauthorizedCallException::class, NoSuchElementException::class)
     fun createEvent(
         issuerId: Int,
         clubId: Int,
@@ -49,7 +51,7 @@ class EventApplicationService(
         val newEvent = Event(newEventId, newEventName, newEventLocation, newEventTimeFrame)
 
         // save event instance
-        val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("No club with ID $clubId found.")
+        val club = clubRepository.findById(clubId) ?: throw NoSuchElementException("No club with ID $clubId found.")
         club.addEvent(newEvent)
         eventRepository.saveEvent(newEvent)
         clubRepository.save(club)
@@ -60,10 +62,10 @@ class EventApplicationService(
      * @param issuerId ID of volunteer issuing event deletion
      * @param clubId ID of the club to perform the action on
      * @param eventId ID of event to be deleted
-     * @throws IllegalAccessException if issuer is not allowed to perform action
-     * @throws IllegalArgumentException if club not found
+     * @throws UnauthorizedCallException if issuer is not allowed to perform action
+     * @throws NoSuchElementException if club not found
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(NoSuchElementException::class, UnauthorizedCallException::class)
     fun deleteEvent(
         issuerId: Int,
         clubId: Int,
@@ -73,7 +75,7 @@ class EventApplicationService(
         checkOrganizerPermission(issuerId, clubId)
 
         // delete event from repository
-        val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("Club with ID $clubId not found.")
+        val club = clubRepository.findById(clubId) ?: throw NoSuchElementException("Club with ID $clubId not found.")
         club.removeEvent(eventId)
         clubRepository.save(club)
         eventRepository.deleteEventById(eventId)
@@ -87,10 +89,10 @@ class EventApplicationService(
      * @param taskName name of the task to be created
      * @param timeFrame time frame of the task
      * @param featureRequirements requirements for the task
-     * @throws IllegalArgumentException if club or event not found
-     * @throws IllegalAccessException if issuer is not allowed to perform action
+     * @throws NoSuchElementException if club or event not found
+     * @throws UnauthorizedCallException if issuer is not allowed to perform action
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(NoSuchElementException::class, UnauthorizedCallException::class)
     fun addNewTaskToEvent(
         issuerId: Int,
         clubId: Int,
@@ -107,7 +109,7 @@ class EventApplicationService(
         val newTask = EventTask(newTaskId, taskName, timeFrame, featureRequirements)
 
         // add task to event
-        val event = eventRepository.findById(eventId) ?: throw IllegalArgumentException("Event with ID $eventId not found.")
+        val event = eventRepository.findById(eventId) ?: throw NoSuchElementException("Event with ID $eventId not found.")
         event.addTask(newTask)
 
         // save event
@@ -121,10 +123,10 @@ class EventApplicationService(
      * @param clubId ID of club to perform action in
      * @param eventId ID of event from which task is removed
      * @param taskId ID of task to be removed
-     * @throws IllegalAccessException if issuer is not entitled to perform action
-     * @throws IllegalArgumentException if club or event not found
+     * @throws UnauthorizedCallException if issuer is not entitled to perform action
+     * @throws NoSuchElementException if club or event not found
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(NoSuchElementException::class, UnauthorizedCallException::class)
     fun removeTaskFromEvent(
         issuerId: Int,
         clubId: Int,
@@ -135,7 +137,7 @@ class EventApplicationService(
         checkOrganizerPermission(issuerId, clubId)
 
         // get event instance
-        val event = eventRepository.findById(eventId) ?: throw IllegalArgumentException("Could not find event with ID $eventId.")
+        val event = eventRepository.findById(eventId) ?: throw NoSuchElementException("Could not find event with ID $eventId.")
 
         // remove task with taskId from event
         event.removeTask(taskId)
@@ -151,10 +153,10 @@ class EventApplicationService(
      * @param clubId ID of club to perform action in
      * @param eventId ID of event to be edited
      * @param eventEdit edits to be made
-     * @throws IllegalAccessException if issuer is not allowed to perform action
-     * @throws IllegalArgumentException if club or event is not found
+     * @throws UnauthorizedCallException if issuer is not allowed to perform action
+     * @throws NoSuchElementException if club or event is not found
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(NoSuchElementException::class, UnauthorizedCallException::class)
     fun editEvent(
         issuerId: Int,
         clubId: Int,
@@ -165,7 +167,7 @@ class EventApplicationService(
         checkOrganizerPermission(issuerId, clubId)
 
         // get event instance
-        val oldEvent = eventRepository.findById(eventId) ?: throw IllegalArgumentException("Could not find event with ID $eventId")
+        val oldEvent = eventRepository.findById(eventId) ?: throw NoSuchElementException("Could not find event with ID $eventId")
 
         // edit event
         val newName = eventEdit.name ?: oldEvent.name
@@ -189,18 +191,17 @@ class EventApplicationService(
      * Throws errors if check failed
      * @param issuerId ID of volunteer to check
      * @param clubId ID of club to check
-     * @throws IllegalArgumentException if club could not be found
-     * @throws IllegalAccessException if issuer is not organizer in the club
+     * @throws NoSuchElementException if club could not be found
+     * @throws UnauthorizedCallException if issuer is not organizer in the club
      */
-    @Throws(IllegalArgumentException::class, IllegalAccessException::class)
+    @Throws(UnauthorizedCallException::class, NoSuchElementException::class)
     fun checkOrganizerPermission(
         issuerId: Int,
         clubId: Int,
     ) {
-        // TODO: refine exceptions
-        val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("Club with ID $clubId not found.")
+        val club = clubRepository.findById(clubId) ?: throw NoSuchElementException("Club with ID $clubId not found.")
         if (!club.isOrganizer(issuerId)) {
-            throw IllegalAccessException("Volunteer with ID $issuerId is not an organizer.")
+            throw UnauthorizedCallException("Volunteer with ID $issuerId is not an organizer.")
         }
     }
 }
