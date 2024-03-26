@@ -11,7 +11,9 @@ import de.volunteerorganizer.domain.volunteer.VolunteerFeature
 import de.volunteerorganizer.domain.volunteer.VolunteerName
 import io.ktor.http.*
 import junit.framework.TestCase
+import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
+import org.mockito.kotlin.KArgumentCaptor
 import java.time.Instant
 import java.util.*
 
@@ -25,14 +27,22 @@ class EventApplicationServiceTest : TestCase() {
     private val organizerId = 0
     private val clubId = 0
     private val existingEventId = 1
-    override fun setUp(){
+
+    override fun setUp() {
         val club = Club(clubId, ClubInfo("testClub", Date.from(Instant.now())))
         club.addMember(Volunteer(organizerId, VolunteerName("", ""), setOf<VolunteerFeature>()))
         club.addOrganizer(organizerId)
 
         Mockito.`when`(mockClubRepo.findById(0)).thenReturn(club)
 
-        val event = Event(1, EventName("test"), )
+        val eventName = EventName("test")
+        val eventLocation = EventLocation("test", VirtualAddress(Url("test.de")))
+        val eventTimeFrame = EventTimeFrame(Instant.now(), Instant.now())
+        val event = Event(1, eventName, eventLocation, eventTimeFrame)
+
+        val task = EventTask(0, "test", eventTimeFrame, setOf<FeatureRequirement>())
+        event.addTask(task)
+        Mockito.`when`(mockEventRepo.findById(1)).thenReturn(event)
         Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(0)
     }
 
@@ -69,7 +79,14 @@ class EventApplicationServiceTest : TestCase() {
         val newTaskFeatureRequirement = setOf<FeatureRequirement>()
 
         // Act
-        eventApplicationService.addNewTaskToEvent(organizerId, clubId, existingEventId, newTaskName, newTaskTimeFrame, newTaskFeatureRequirement)
+        eventApplicationService.addNewTaskToEvent(
+            organizerId,
+            clubId,
+            existingEventId,
+            newTaskName,
+            newTaskTimeFrame,
+            newTaskFeatureRequirement,
+        )
 
         // Assert
         Mockito.verify(mockTaskRepo.generateNewTaskId())
@@ -77,9 +94,26 @@ class EventApplicationServiceTest : TestCase() {
         // TODO: check if task is also saved in Event that is saved
     }
 
-    fun testRemoveTaskFromEvent() {}
+    fun testRemoveTaskFromEvent() {
+        // Arrange
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
 
-    fun testEditEvent() {}
+        // Act
+        eventApplicationService.removeTaskFromEvent(organizerId, clubId, 1, 0)
+
+        // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertFalse(capturedEvent.getTasks().count { t -> t.id == 0 } > 0)
+    }
+
+    fun testEditEvent() {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
 
     fun testGetAllEvents() {}
 }
