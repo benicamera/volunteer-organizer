@@ -31,7 +31,7 @@ class Club(val id: Int, val info: ClubInfo) {
     /**
      * @returns immutable set of the members
      */
-    fun getMembers() = setOf(members)
+    fun getMembers() = members.toSet()
 
     /**
      * Add organizer (must be member of the club)
@@ -40,8 +40,9 @@ class Club(val id: Int, val info: ClubInfo) {
      */
     @Throws(IndexOutOfBoundsException::class)
     fun addOrganizer(memberId: Int) {
-        val newOrganizer = members.find { m -> m.id == memberId }
-            ?: throw IndexOutOfBoundsException("Cannot find member with $memberId.")
+        val newOrganizer =
+            members.find { m -> m.id == memberId }
+                ?: throw IndexOutOfBoundsException("Cannot find member with $memberId.")
         organizers.add(newOrganizer)
     }
 
@@ -53,7 +54,7 @@ class Club(val id: Int, val info: ClubInfo) {
         organizers.removeIf { o -> o.id == organizerId }
     }
 
-    fun isOrganizer(volunteerId: Int): Boolean{
+    fun isOrganizer(volunteerId: Int): Boolean {
         return organizers.count { o -> o.id == volunteerId } > 0
     }
 
@@ -81,5 +82,5 @@ class Club(val id: Int, val info: ClubInfo) {
     /**
      * @returns immutable set of events of this club
      */
-    fun getEvents() = setOf(events)
+    fun getEvents() = events.toSet()
 }
