@@ -38,9 +38,10 @@ class EventApplicationService(
         checkOrganizerPermission(issuerId, clubId)
 
         // create event instance
-        val newEventName = eventInformation.name ?: throw IllegalArgumentException("No event information can be null.")
-        val newEventLocation = eventInformation.location ?: throw IllegalArgumentException("No event information can be null.")
-        val newEventTimeFrame = eventInformation.timeFrame ?: throw IllegalArgumentException("No event information can be null.")
+        val errorMessage = "No event information can be null."
+        val newEventName = eventInformation.name ?: throw IllegalArgumentException(errorMessage)
+        val newEventLocation = eventInformation.location ?: throw IllegalArgumentException(errorMessage)
+        val newEventTimeFrame = eventInformation.timeFrame ?: throw IllegalArgumentException(errorMessage)
         val newEventId = eventRepository.generateNewEventId()
 
         val newEvent = Event(newEventId, newEventName, newEventLocation, newEventTimeFrame)
