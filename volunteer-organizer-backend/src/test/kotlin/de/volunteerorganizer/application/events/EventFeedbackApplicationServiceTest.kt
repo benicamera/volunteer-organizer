@@ -22,14 +22,17 @@ class EventFeedbackApplicationServiceTest : TestCase() {
     private val mockClubRepo = Mockito.mock(IClubRepository::class.java)
     private val eventFAService = EventFeedbackApplicationService(mockEventRepo, mockClubRepo)
     private val existingVolunteerId = 1
+    private val registeredVolunteerId = 2
     private val existingClubId = 0
     private val existingEventId = 0
     private val existingTaskId = 0
 
     override fun setUp() {
         val club = Club(existingClubId, ClubInfo("test", Date.from(Instant.now())))
-        val volunteer = Volunteer(existingVolunteerId, VolunteerName("test", "test"), setOf<VolunteerFeature>())
-        club.addMember(volunteer)
+        val volunteer1 = Volunteer(existingVolunteerId, VolunteerName("test", "test"), setOf<VolunteerFeature>())
+        club.addMember(volunteer1)
+        val volunteer2 = Volunteer(registeredVolunteerId, VolunteerName("test", "test"), setOf<VolunteerFeature>())
+        club.addMember(volunteer2)
 
         val timeFrame = EventTimeFrame(Instant.now(), Instant.now())
         val task = EventTask(existingTaskId, "test", timeFrame, setOf<FeatureRequirement>())
@@ -37,7 +40,7 @@ class EventFeedbackApplicationServiceTest : TestCase() {
         val location = EventLocation("test", VirtualAddress(Url("test")))
         val event = Event(existingEventId, EventName("test"), location, timeFrame)
         event.addTask(task)
-
+        event.addVolunteerToTask(existingTaskId, volunteer2)
         Mockito.`when`(mockEventRepo.findById(existingEventId)).thenReturn(event)
         Mockito.`when`(mockClubRepo.findById(existingClubId)).thenReturn(club)
     }
@@ -55,5 +58,21 @@ class EventFeedbackApplicationServiceTest : TestCase() {
         assertTrue(capturedEvent.getTasks().find { t -> t.id == existingTaskId }!!.getVolunteers().any { v -> v.id == existingVolunteerId })
     }
 
-    fun testDeregisterFromEvent() {}
+    fun testDeregisterFromTask() {
+        // Arrange
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+
+        // Act
+        eventFAService.deregisterFromTask(registeredVolunteerId, existingEventId, existingTaskId)
+
+        // Assert
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertFalse(
+            capturedEvent.getTasks().find {
+                    t ->
+                t.id == existingTaskId
+            }!!.getVolunteers().any { v -> v.id == registeredVolunteerId },
+        )
+    }
 }

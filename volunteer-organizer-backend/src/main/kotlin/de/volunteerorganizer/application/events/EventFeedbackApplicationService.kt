@@ -44,14 +44,19 @@ class EventFeedbackApplicationService(private val eventRepository: IEventReposit
      * @param issuerId ID of volunteer issuing the use case
      * @param eventId ID of event to deregister from
      */
-    fun deregisterFromEvent(
+    fun deregisterFromTask(
         issuerId: Int,
         eventId: Int,
+        taskId: Int,
     ) {
         // get event with event id
+        val event = eventRepository.findById(eventId) ?: throw NoSuchElementException("Event with ID $eventId not found.")
 
         // remove volunteer with id from event
+        // TODO: maybe throw exception if task not found or issuer is not registered?
+        event.removeVolunteerFromTask(taskId, issuerId)
 
         // save event
+        eventRepository.saveEvent(event)
     }
 }
