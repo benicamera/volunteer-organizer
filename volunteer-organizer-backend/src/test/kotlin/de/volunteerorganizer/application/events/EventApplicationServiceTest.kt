@@ -25,14 +25,14 @@ class EventApplicationServiceTest : TestCase() {
     private val organizerId = 0
     private val clubId = 0
     private val existingEventId = 1
-    override fun setUp(){
+    override fun setUp() {
         val club = Club(clubId, ClubInfo("testClub", Date.from(Instant.now())))
         club.addMember(Volunteer(organizerId, VolunteerName("", ""), setOf<VolunteerFeature>()))
         club.addOrganizer(organizerId)
 
         Mockito.`when`(mockClubRepo.findById(0)).thenReturn(club)
 
-        val event = Event(1, EventName("test"), )
+        val event = Event(1, EventName("test"))
         Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(0)
     }
 

@@ -181,10 +181,10 @@ class EventApplicationService(private val eventRepository: IEventRepository, pri
      * @throws IllegalAccessException if issuer is not organizer in the club
      */
     @Throws(IllegalArgumentException::class, IllegalAccessException::class)
-    fun checkOrganizerPermission(issuerId: Int, clubId: Int){
+    fun checkOrganizerPermission(issuerId: Int, clubId: Int) {
         // TODO: refine exceptions
         val club = clubRepository.findById(clubId) ?: throw IllegalArgumentException("Club with ID $clubId not found.")
-        if(!club.isOrganizer(issuerId)){
+        if (!club.isOrganizer(issuerId)) {
             throw IllegalAccessException("Volunteer with ID $issuerId is not an organizer.")
         }
     }
