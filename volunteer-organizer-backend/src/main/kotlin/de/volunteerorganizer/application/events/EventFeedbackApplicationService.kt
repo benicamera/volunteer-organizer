@@ -18,7 +18,7 @@ class EventFeedbackApplicationService(private val eventRepository: IEventReposit
      * @throws NoSuchElementException if event or club is not found
      */
     @Throws(NoSuchElementException::class)
-    fun registerToEvent(
+    fun registerForTask(
         issuerId: Int,
         eventId: Int,
         clubId: Int,

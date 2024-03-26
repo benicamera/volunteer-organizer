@@ -42,12 +42,12 @@ class EventFeedbackApplicationServiceTest : TestCase() {
         Mockito.`when`(mockClubRepo.findById(existingClubId)).thenReturn(club)
     }
 
-    fun testRegisterToEvent() {
+    fun testRegisterForTask() {
         // Arrange
         val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
 
         // Act
-        eventFAService.registerToEvent(existingVolunteerId, existingEventId, existingClubId, existingTaskId)
+        eventFAService.registerForTask(existingVolunteerId, existingEventId, existingClubId, existingTaskId)
 
         // Assert
         Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
