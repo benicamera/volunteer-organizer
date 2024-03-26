@@ -30,7 +30,8 @@ class EventApplicationServiceTest : TestCase() {
 
     override fun setUp() {
         val club = Club(clubId, ClubInfo("testClub", Date.from(Instant.now())))
-        club.addMember(Volunteer(organizerId, VolunteerName("", ""), setOf<VolunteerFeature>()))
+        val organizer = Volunteer(organizerId, VolunteerName("", ""), setOf<VolunteerFeature>())
+        club.addMember(organizer)
         club.addOrganizer(organizerId)
 
         Mockito.`when`(mockClubRepo.findById(0)).thenReturn(club)
@@ -42,8 +43,10 @@ class EventApplicationServiceTest : TestCase() {
 
         val task = EventTask(0, "test", eventTimeFrame, setOf<FeatureRequirement>())
         event.addTask(task)
+        event.addVolunteerToTask(0, organizer)
         Mockito.`when`(mockEventRepo.findById(existingEventId)).thenReturn(event)
         Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(0)
+        Mockito.`when`(mockEventRepo.findByVolunteer(organizerId)).thenReturn(setOf(event))
     }
 
     // TODO: test permission check
@@ -152,5 +155,13 @@ class EventApplicationServiceTest : TestCase() {
         assertEquals(newTimeFrame, capturedEvent.timeFrame)
     }
 
-    fun testGetAllEvents() {}
+    fun testGetAllEvents() {
+        // Arrange
+
+        // Act
+        val foundEvents = eventApplicationService.getAllEvents(organizerId)
+
+        // Assert
+        assertEquals(1, foundEvents.size)
+    }
 }
