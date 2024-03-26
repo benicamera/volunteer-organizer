@@ -27,6 +27,7 @@ class EventApplicationServiceTest : TestCase() {
     private val organizerId = 0
     private val clubId = 0
     private val existingEventId = 1
+    private val existingTaskId = 0
 
     override fun setUp() {
         val club = Club(clubId, ClubInfo("testClub", Date.from(Instant.now())))
@@ -41,11 +42,11 @@ class EventApplicationServiceTest : TestCase() {
         val eventTimeFrame = EventTimeFrame(Instant.now(), Instant.now())
         val event = Event(existingEventId, eventName, eventLocation, eventTimeFrame)
 
-        val task = EventTask(0, "test", eventTimeFrame, setOf<FeatureRequirement>())
+        val task = EventTask(existingTaskId, "test", eventTimeFrame, setOf<FeatureRequirement>())
         event.addTask(task)
-        event.addVolunteerToTask(0, organizer)
+        event.addVolunteerToTask(existingTaskId, organizer)
         Mockito.`when`(mockEventRepo.findById(existingEventId)).thenReturn(event)
-        Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(0)
+        Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(existingTaskId)
         Mockito.`when`(mockEventRepo.findByVolunteer(organizerId)).thenReturn(setOf(event))
     }
 
@@ -77,9 +78,11 @@ class EventApplicationServiceTest : TestCase() {
 
     fun testAddNewTaskToEvent() {
         // Arrange
-        val newTaskName = "test"
+        val newTaskName = "addtest"
         val newTaskTimeFrame = EventTimeFrame(Instant.now(), Instant.now())
         val newTaskFeatureRequirement = setOf<FeatureRequirement>()
+        val eventCaptor = KArgumentCaptor<Event>(ArgumentCaptor.forClass(Event::class.java), Event::class)
+        Mockito.`when`(mockTaskRepo.generateNewTaskId()).thenReturn(existingTaskId + 1)
 
         // Act
         eventApplicationService.addNewTaskToEvent(
@@ -93,8 +96,9 @@ class EventApplicationServiceTest : TestCase() {
 
         // Assert
         Mockito.verify(mockTaskRepo).generateNewTaskId()
-        Mockito.verify(mockTaskRepo).save(EventTask(0, newTaskName, newTaskTimeFrame, newTaskFeatureRequirement))
-        // TODO: check if task is also saved in Event that is saved
+        Mockito.verify(mockEventRepo).saveEvent(eventCaptor.capture())
+        val capturedEvent = eventCaptor.firstValue
+        assertEquals(newTaskName, capturedEvent.getTasks().find { t -> t.id == existingTaskId + 1 }!!.name)
     }
 
     fun testRemoveTaskFromEvent() {

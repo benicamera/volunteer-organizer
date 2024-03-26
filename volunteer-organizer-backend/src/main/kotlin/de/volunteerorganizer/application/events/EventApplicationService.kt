@@ -113,7 +113,6 @@ class EventApplicationService(
         event.addTask(newTask)
 
         // save event
-        taskRepository.save(newTask)
         eventRepository.saveEvent(event)
     }
 
